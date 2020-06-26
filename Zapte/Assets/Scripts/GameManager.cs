@@ -5,15 +5,28 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager instance;
+    private PlayerController playerController;
+
+    private void Start()
     {
-        
+        if (GameManager.instance == null)
+            GameManager.instance = this;
+        else 
+            Destroy(this.gameObject);
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            StartGame(); 
+        }
+    }
+
+    public void StartGame()
+    {
+        playerController.StartGame();
     }
 }
