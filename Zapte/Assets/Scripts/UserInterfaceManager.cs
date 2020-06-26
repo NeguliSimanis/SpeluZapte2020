@@ -5,20 +5,14 @@ using UnityEngine.UI;
 
 public class UserInterfaceManager : MonoBehaviour
 {
-
     [SerializeField]
-    Button startGame;
+    Animator friendTextHUD;
     [SerializeField]
-    Button quitGame;
+    Text friendText;
 
-
-    void Start()
+    public void ShowNewFriendTextHUD(string newFriendText)
     {
-        
-    }
-
-    void Update()
-    {
-        
+        friendText.text = newFriendText;
+        friendTextHUD.SetTrigger("highlight");
     }
 }
