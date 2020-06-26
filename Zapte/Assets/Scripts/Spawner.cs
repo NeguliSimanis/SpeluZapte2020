@@ -8,18 +8,29 @@ public class Spawner : MonoBehaviour
    
    public GameObject[] people;
    private int rand;
+   private float random;
    private float timeBtwSpawn;
-   public float startTimeBtwSpawn;
+   public float startTimeBtwSpawnMin;
+   public float startTimeBtwSpawnMax;
    public float decreaseTime;
    public float minTime = 0.65f;
+   private float decrease;
+  
+   private float startTimeBtwSpawn;
+ 
    
    private void Update(){
+	   random = Random.Range(startTimeBtwSpawnMin, startTimeBtwSpawnMax);
+	   startTimeBtwSpawn = random;
+	   if(startTimeBtwSpawn + decrease >= minTime){
+		   startTimeBtwSpawn += decrease;
+	   }
 	   if(timeBtwSpawn <= 0){
 		   rand = Random.Range(0, people.Length);
 		   Instantiate(people[rand], transform.position, Quaternion.identity);
 		   timeBtwSpawn = startTimeBtwSpawn;
 		   if(startTimeBtwSpawn > minTime){
-			   startTimeBtwSpawn -= decreaseTime;
+			   decrease -= decreaseTime;
 		   }
 		  
 		   
