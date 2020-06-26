@@ -6,10 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody2D;
 
-    #region jumping data
+    #region movement data
     [HideInInspector]
     public bool isGrounded;
-    float jumpForce = 200f;
+    [HideInInspector]
+    public bool allowJump = false;
+    [HideInInspector]
+    public bool allowWalk = true;
+    float jumpForce = 500f;
+    float moveForce = 200f;
     #endregion
 
     #region animation data
@@ -20,7 +25,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isGrounded = false;
+        allowJump = false;
+        allowWalk = false;
         playerRigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    public void StartGame()
+    {
+        allowJump = true;
+        allowWalk = true;
     }
 
     void Update()
@@ -36,11 +49,18 @@ public class PlayerController : MonoBehaviour
 
     private void CheckPlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && allowJump)
         {
-            Debug.Log("JUMP PRESSED");
             playerRigidbody2D.AddForce(Vector2.up * jumpForce);
             isGrounded = false;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && allowWalk)
+        {
+            playerRigidbody2D.AddForce(Vector2.right * moveForce);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && allowWalk)
+        {
+            playerRigidbody2D.AddForce(Vector2.left * moveForce);
         }
     }
 }
