@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
    public GameObject obstacle;
    
+   public GameObject[] people;
+   private int rand;
    private float timeBtwSpawn;
    public float startTimeBtwSpawn;
    public float decreaseTime;
@@ -13,7 +15,8 @@ public class Spawner : MonoBehaviour
    
    private void Update(){
 	   if(timeBtwSpawn <= 0){
-		   Instantiate(obstacle, transform.position, Quaternion.identity);
+		   rand = Random.Range(0, people.Length);
+		   Instantiate(people[rand], transform.position, Quaternion.identity);
 		   timeBtwSpawn = startTimeBtwSpawn;
 		   if(startTimeBtwSpawn > minTime){
 			   startTimeBtwSpawn -= decreaseTime;
@@ -24,4 +27,9 @@ public class Spawner : MonoBehaviour
 		   timeBtwSpawn -= Time.deltaTime;
 	   }
    }
+   
+   
+   //public Transform spawnPoint;
+  
+   
 }
