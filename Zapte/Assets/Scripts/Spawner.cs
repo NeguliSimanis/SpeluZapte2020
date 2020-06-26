@@ -17,9 +17,8 @@ public class Spawner : MonoBehaviour
    private float decrease;
   
    private float startTimeBtwSpawn;
- 
-   
-   private void Update(){
+
+    private void Update(){
 	   random = Random.Range(startTimeBtwSpawnMin, startTimeBtwSpawnMax);
 	   startTimeBtwSpawn = random;
 	   if(startTimeBtwSpawn + decrease >= minTime){

@@ -24,7 +24,7 @@ public class FriendZone : MonoBehaviour
         {
             if (!isInnerFriendZone)
             {
-                Debug.Log("should activate friend zone");
+                //Debug.Log("should activate friend zone");
                 friendController.ActivateFriendZone(true);
             }
             else

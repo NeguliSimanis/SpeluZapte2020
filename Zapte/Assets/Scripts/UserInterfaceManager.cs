@@ -6,13 +6,30 @@ using UnityEngine.UI;
 public class UserInterfaceManager : MonoBehaviour
 {
     [SerializeField]
-    Animator friendTextHUD;
-    [SerializeField]
-    Text friendText;
+    Text friendCount;
 
-    public void ShowNewFriendTextHUD(string newFriendText)
+    [SerializeField]
+    Text lifeText;
+
+    public void AddFriend()
     {
-        friendText.text = newFriendText;
-        friendTextHUD.SetTrigger("highlight");
+        PlayerStats.current.currentFriends++;
+        friendCount.text = "Friends: " + PlayerStats.current.currentFriends.ToString();
+    }
+
+
+    public void AddLife(int amount)
+    {
+        Debug.Log("lives before hurt " + PlayerStats.current.currentLives.ToString());
+        PlayerStats.current.currentLives += amount;
+        if (PlayerStats.current.currentLives > 0)
+        {
+            lifeText.text = "Lives: " + PlayerStats.current.currentLives.ToString();
+        }
+        else
+        {
+            lifeText.text = "Lives: " + "0";
+        }
+        Debug.Log("lives after hurt " + PlayerStats.current.currentLives.ToString());
     }
 }

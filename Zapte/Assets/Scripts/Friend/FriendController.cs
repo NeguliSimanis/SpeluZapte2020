@@ -22,6 +22,7 @@ public class FriendController : MonoBehaviour
     Animator friendAnimator;
 
     private bool isPlayerInFriendZone = false;
+    private bool hasHurtPlayer = false;
 
     #region friend text data
     [Header("TEXT DATA")]
@@ -31,6 +32,7 @@ public class FriendController : MonoBehaviour
     private FriendTextGenerator friendTextGenerator;
     [HideInInspector]
     public string friendText;
+    private UserInterfaceManager userInterfaceManager;
     #endregion
 
     private void Start()
@@ -42,6 +44,7 @@ public class FriendController : MonoBehaviour
     private void GetComponents()
     {
         friendTextAnimator = friendTextField.gameObject.GetComponent<Animator>();
+        userInterfaceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UserInterfaceManager>();
     }
 
     private void InitializeFriendText()
@@ -56,14 +59,14 @@ public class FriendController : MonoBehaviour
     {
         if (activate)
         {
-            Debug.Log("player has entered friend zone");
+            //Debug.Log("player has entered friend zone");
             AnimateFriendText();
             isPlayerInFriendZone = true;
         }
         else
         {
             isPlayerInFriendZone = false;
-            Debug.Log("player has exited friend zone");
+            //Debug.Log("player has exited friend zone");
         }
         
     }
@@ -79,13 +82,11 @@ public class FriendController : MonoBehaviour
         {
             if (Input.inputString == friendText)
             {
-                Debug.Log("RIGHT INPUT");
-                DestroySelf();
+                AddFriend();
             }
-            else if (Input.inputString != null)
+            else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("WRONG INPUT");
-               // HurtPlayer();
+               HurtPlayer();
             }
         }
     }
@@ -97,8 +98,18 @@ public class FriendController : MonoBehaviour
 
     public void HurtPlayer()
     {
-        Debug.Log("MUST HURT PLAYER");
-        DestroySelf();;
+        if (hasHurtPlayer)
+            return;
+        hasHurtPlayer = true;
+        Debug.Log(gameObject.name + " MUST HURT PLAYER " + Time.time);
+        userInterfaceManager.AddLife(-1);
+        DestroySelf();
+    }
+
+    private void AddFriend()
+    {
+        userInterfaceManager.AddFriend();
+        DestroySelf();
     }
 
     private void DestroySelf()
