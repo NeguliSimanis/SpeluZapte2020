@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody2D;
 
+    public bool inFriendZone = false;
+
     #region movement data
     [HideInInspector]
     public bool isGrounded;

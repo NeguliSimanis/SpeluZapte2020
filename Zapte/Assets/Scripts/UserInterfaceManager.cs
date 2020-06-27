@@ -6,6 +6,7 @@ using TMPro;
 
 public class UserInterfaceManager : MonoBehaviour
 {
+    PlayerController playerController;
     string alphabet = "abcdefghijklmnopqrstuvwxyz";
 
     [SerializeField]
@@ -52,8 +53,9 @@ public class UserInterfaceManager : MonoBehaviour
         endGameMenu = GameObject.Find("GameOver");
         endGameMenu.SetActive(false);
         endGameCanvas = GameObject.Find("MainMenu");
-        startMenu = GameObject.Find("StartPanel"); 
-}
+        startMenu = GameObject.Find("StartPanel");
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
 
     private void Start()
     {
@@ -94,6 +96,9 @@ public class UserInterfaceManager : MonoBehaviour
                 keyInputAnimationEndTime = Time.time + keyInputAnimationTime;
                 keyInputText1.text = letterString.ToUpper();
                 keyInputText2.text = letterString.ToUpper();
+
+                if (!playerController.inFriendZone)
+                    GameManager.instance.audioManager.PlayKeyTapSFX();
             }
         }
 

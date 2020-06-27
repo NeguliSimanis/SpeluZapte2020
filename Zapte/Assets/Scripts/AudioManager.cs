@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
     AudioClip friendFoundSFX;
     [SerializeField]
     AudioClip friendLostSFX;
+    [SerializeField]
+    AudioClip keyTapSFX;
 
     private void Start()
     {
@@ -39,6 +41,12 @@ public class AudioManager : MonoBehaviour
     {
         sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
         sfxAudioSource.PlayOneShot(friendLostSFX);
+    }
+
+    public void PlayKeyTapSFX()
+    {
+        sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
+        sfxAudioSource.PlayOneShot(keyTapSFX);
     }
 
     public void PlayFastMusic(bool start)

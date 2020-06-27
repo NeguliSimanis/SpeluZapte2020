@@ -12,10 +12,12 @@ public class FriendZone : MonoBehaviour
     bool isInnerFriendZone;
 
     FriendController friendController;
+    PlayerController playerController;
 
     private void Start()
     {
         friendController = transform.parent.gameObject.GetComponent<FriendController>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -24,6 +26,7 @@ public class FriendZone : MonoBehaviour
             return;
         if (collision.gameObject.tag == "Player")
         {
+            playerController.inFriendZone = true;
             if (!isInnerFriendZone)
             {
                 //Debug.Log("should activate friend zone");
@@ -34,8 +37,17 @@ public class FriendZone : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            playerController.inFriendZone = true;
+        }   
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
+        playerController.inFriendZone = false;
         if (!GameManager.instance.gameStarted)
             return;
         if (collision.gameObject.tag == "Player" && !isInnerFriendZone)

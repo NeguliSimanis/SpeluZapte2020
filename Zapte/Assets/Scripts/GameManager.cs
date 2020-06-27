@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region FAST MODE
-    [SerializeField]
     GameObject fastModeImage;
     float fastMusicStartDelay = 24f;
     float fastMusicStartTime;
@@ -45,7 +44,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         audioManager = transform.GetChild(0).gameObject.GetComponent<AudioManager>();
-
+     
         if (GameManager.instance == null)
             GameManager.instance = this;
         else
@@ -76,6 +75,8 @@ public class GameManager : MonoBehaviour
         fastMusicPlaying = false;
         gameStarted = false;
 
+        fastModeImage = GameObject.Find("FastMusicOverlay");
+        fastModeImage.SetActive(false);
         userInterfaceManager = gameObject.GetComponent<UserInterfaceManager>();
         userInterfaceManager.InitializeManager();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -90,7 +91,6 @@ public class GameManager : MonoBehaviour
 
         if (!increaseSpeed)
             return;
-        Debug.Log("increase speed check " + Time.time);
         if (nextSpeedIncreaseTime == 0 || nextSpeedIncreaseTime < Time.time)
         {
             speedIncreaseIncrement *= 1.1f;
@@ -129,8 +129,6 @@ public class GameManager : MonoBehaviour
         fastMusicStartTimeSet = false;
         increaseSpeed = true;
         gameStarted = true;
-        fastModeImage = GameObject.Find("FastMusicOverlay");
-        fastModeImage.SetActive(false);
     }
 
 

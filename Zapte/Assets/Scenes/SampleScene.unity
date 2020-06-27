@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 35984990}
   - component: {fileID: 35984989}
   - component: {fileID: 35984988}
+  - component: {fileID: 35984991}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -330,8 +331,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1995179113}
-        m_MethodName: RestartGame
+      - m_Target: {fileID: 35984991}
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -378,6 +379,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35984986}
   m_CullTransparentMesh: 0
+--- !u!114 &35984991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35984986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b9e00934c18ae4997391783ba0770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &53255737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,7 +2416,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318194722}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2763,7 +2776,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: people person
+  m_Text: friend zone
 --- !u!222 &1433688371
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3387,6 +3400,10 @@ PrefabInstance:
       propertyPath: friendLostSFX
       value: 
       objectReference: {fileID: 8300000, guid: c8f6c47ac27a69e488cb2a2d3f2577cb, type: 3}
+    - target: {fileID: 1381057144, guid: dbb06dfcab3196946924dd3ce3189dd1, type: 3}
+      propertyPath: keyTapSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: de6d7e360a9ebd94491cb75724bfa6ea, type: 3}
     - target: {fileID: 1720714342, guid: dbb06dfcab3196946924dd3ce3189dd1, type: 3}
       propertyPath: m_audioClip
       value: 
