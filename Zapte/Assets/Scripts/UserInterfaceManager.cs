@@ -49,6 +49,8 @@ public class UserInterfaceManager : MonoBehaviour
     Text charismaEarnedText2;
     #endregion
 
+    GameObject storyPanel;
+
     public void InitializeManager()
     {
         friendCount = GameObject.Find("friendCountText").GetComponent<Text>();
@@ -69,6 +71,9 @@ public class UserInterfaceManager : MonoBehaviour
         friendsFoundText2 = GameObject.Find("friendsFoundText (1)").GetComponent<Text>();
         charismaEarnedText2 = GameObject.Find("charismaEarnedText (1)").GetComponent<Text>();
 
+        storyPanel = GameObject.Find("StoryPanel");
+
+        storyPanel.SetActive(false);
         keyInputHUD.SetActive(false);
         endGameMenu.SetActive(false);
     }
@@ -84,6 +89,11 @@ public class UserInterfaceManager : MonoBehaviour
         friendCount.text = "Friends: " + PlayerStats.current.currentFriends.ToString();
     }
 
+
+    public void ShowStory(bool show)
+    {
+        storyPanel.SetActive(show);
+    }
 
     public void AddLife(int amount)
     {

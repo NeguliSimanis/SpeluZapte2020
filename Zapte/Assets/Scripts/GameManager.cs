@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     bool fastMusicStartTimeSet = false;
     #endregion
 
+    bool allowStartGame = true;
+    float allowStartGameTime;
+
     private void Awake()
     {
         if (PlayerStats.current == null)
@@ -84,10 +87,23 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.current.currentLives > 0 && !gameStarted)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.current.currentLives > 0
+            && !gameStarted && allowStartGame)
         {
             StartGame(); 
         }
+        if (Input.GetKeyDown(KeyCode.F) && !gameStarted && allowStartGame)
+        {
+            allowStartGame = false;
+            allowStartGameTime = Time.time + 8f;
+            userInterfaceManager.ShowStory(true);
+        }
+        if (!allowStartGame && Time.time > allowStartGameTime)
+        {
+            allowStartGame = true;
+            userInterfaceManager.ShowStory(false);
+        }
+
 
         if (!increaseSpeed)
             return;
@@ -144,7 +160,7 @@ public class GameManager : MonoBehaviour
         fastMusicPlaying = start;
         audioManager.PlayFastMusic(start);
         fastModeImage.SetActive(start);
-
+        audioManager.PlayNoFriends();
         if (Time.timeScale > 3.1f)
             playerController.playerAnimator.SetFloat("Blend", 1f);
     }
@@ -156,6 +172,7 @@ public class GameManager : MonoBehaviour
         gameStarted = false;
         increaseSpeed = false;
         audioManager.StartMenuMusic();
+        audioManager.PlayNoFriends();
         userInterfaceManager.ShowEndGameUI();
     }
 
