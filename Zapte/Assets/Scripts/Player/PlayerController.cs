@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRigidbody2D;
+    UserInterfaceManager userInterfaceManager;
 
     public bool inFriendZone = false;
 
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         allowJump = true;
         allowWalk = true;
+        userInterfaceManager = GameManager.instance.gameObject.GetComponent<UserInterfaceManager>();
     }
 
     void Update()
@@ -51,10 +53,13 @@ public class PlayerController : MonoBehaviour
 
     private void CheckPlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && allowJump)
+        if (Input.GetKeyDown(KeyCode.Space) && allowJump && isGrounded)
         {
             playerRigidbody2D.AddForce(Vector2.up * jumpForce);
             isGrounded = false;
+            PlayerStats.current.currentJumpID++;
+            if (PlayerStats.current.gainConfidenceOnJump)
+                GainLifeOnJump();
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && allowWalk)
         {
@@ -69,5 +74,14 @@ public class PlayerController : MonoBehaviour
     private void UpdatePlayerAnimatorSpeed()
     {
         playerAnimator.speed = Time.timeScale;
+    }
+
+    private void GainLifeOnJump()
+    {
+        if (PlayerStats.current.currentJumpID >= PlayerStats.current.jumpConfidenceGainFrequency)
+        {
+            PlayerStats.current.currentJumpID = -1;
+            userInterfaceManager.AddLife(1);
+        }
     }
 }

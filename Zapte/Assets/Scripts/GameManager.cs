@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
             GameManager.instance = this;
         else
             Destroy(this.gameObject);
-        
     }
 
     void OnEnable()
