@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
 
     #region SPEED MANAGEMENT
     float standardGameSpeed = 1f;
-    float gameSpeedIncrease = 0.08f;
+    float gameSpeedIncrease = 0.06f;
     float speedIncreaseIncrement = 1f; // detėrmines how often speed is updated
-    float defaultSpeedIncreaseIncrement = 1F;
+    float defaultSpeedIncreaseIncrement = 1.02F;
     float nextSpeedIncreaseTime = 0f;
-    float maxGameSpeed = 4.4f;
+    float maxGameSpeed = 4.5f;
     float fastSpeedMultiplier = 1.5f;
     bool increaseSpeed = false;
     float musicSpeedIncreaseIncrement = 0.2f;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     #region FAST MODE
     GameObject fastModeImage;
-    float fastMusicStartDelay = 24f;
+    float fastMusicStartDelay = 36f;
     float fastMusicStartTime;
     bool fastMusicPlaying = false;
     bool fastMusicStartTimeSet = false;
@@ -79,11 +79,12 @@ public class GameManager : MonoBehaviour
         userInterfaceManager = gameObject.GetComponent<UserInterfaceManager>();
         userInterfaceManager.InitializeManager();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        audioManager.StartMenuMusic();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.current.currentLives > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.current.currentLives > 0 && !gameStarted)
         {
             StartGame(); 
         }
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
             {
                 Time.timeScale *= (1 + gameSpeedIncrease);
                 UpdateMusicSpeed();
-                //Debug.Log("curr speed " + Time.timeScale);
+                Debug.Log("curr speed " + Time.timeScale);
             }
 
             else 
@@ -123,11 +124,12 @@ public class GameManager : MonoBehaviour
     {
         userInterfaceManager.HideMainMenu();
         playerController.StartGame();
-        nextSpeedIncreaseTime = Time.time + speedIncreaseIncrement;
+        nextSpeedIncreaseTime = 0;
         speedIncreaseIncrement = defaultSpeedIncreaseIncrement;
         fastMusicStartTimeSet = false;
         increaseSpeed = true;
         gameStarted = true;
+        audioManager.StartGameMusic();
     }
 
 
@@ -142,6 +144,9 @@ public class GameManager : MonoBehaviour
         fastMusicPlaying = start;
         audioManager.PlayFastMusic(start);
         fastModeImage.SetActive(start);
+
+        if (Time.timeScale > 3.1f)
+            playerController.playerAnimator.SetFloat("Blend", 1f);
     }
 
     public void EndGame()

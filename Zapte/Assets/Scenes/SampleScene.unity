@@ -484,7 +484,7 @@ PrefabInstance:
     - target: {fileID: 8204069228750924261, guid: 269d1f34eb72e6b41951f74f75cc90db,
         type: 3}
       propertyPath: people.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8204069228750924261, guid: 269d1f34eb72e6b41951f74f75cc90db,
         type: 3}
@@ -506,6 +506,12 @@ PrefabInstance:
       propertyPath: people.Array.data[0]
       value: 
       objectReference: {fileID: 4200530009777970046, guid: 02a4ca312c84f6441955990d9ad07150,
+        type: 3}
+    - target: {fileID: 8204069228750924261, guid: 269d1f34eb72e6b41951f74f75cc90db,
+        type: 3}
+      propertyPath: people.Array.data[1]
+      value: 
+      objectReference: {fileID: 4200530009777970046, guid: affa96480b355e543945f32c80f05f00,
         type: 3}
     - target: {fileID: 8204069228750924266, guid: 269d1f34eb72e6b41951f74f75cc90db,
         type: 3}
@@ -3600,10 +3606,18 @@ PrefabInstance:
       propertyPath: keyTapSFX
       value: 
       objectReference: {fileID: 8300000, guid: de6d7e360a9ebd94491cb75724bfa6ea, type: 3}
+    - target: {fileID: 1381057144, guid: dbb06dfcab3196946924dd3ce3189dd1, type: 3}
+      propertyPath: defaultBGMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: f66864b1f487ea749957de547f88b02b, type: 3}
+    - target: {fileID: 1381057144, guid: dbb06dfcab3196946924dd3ce3189dd1, type: 3}
+      propertyPath: menuMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 852d7f9f044594448a7a7965238d2a7f, type: 3}
     - target: {fileID: 1720714342, guid: dbb06dfcab3196946924dd3ce3189dd1, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: f66864b1f487ea749957de547f88b02b, type: 3}
+      objectReference: {fileID: 8300000, guid: 852d7f9f044594448a7a7965238d2a7f, type: 3}
     - target: {fileID: 1995179112, guid: dbb06dfcab3196946924dd3ce3189dd1, type: 3}
       propertyPath: friendCount
       value: 

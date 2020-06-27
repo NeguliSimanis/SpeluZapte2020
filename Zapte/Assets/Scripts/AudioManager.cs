@@ -7,6 +7,11 @@ public class AudioManager : MonoBehaviour
     AudioSource audioSource;
 
     [SerializeField]
+    AudioClip defaultBGMusic;
+    [SerializeField]
+    AudioClip menuMusic;
+
+    [SerializeField]
     AudioSource fastAudioSource;
     [SerializeField]
     AudioClip fastMusic;
@@ -24,6 +29,17 @@ public class AudioManager : MonoBehaviour
     {
         audioSource = gameObject.GetComponent<AudioSource>();
         
+    }
+
+    public void StartMenuMusic()
+    {
+        audioSource.clip = menuMusic;
+        audioSource.Play();
+    }
+    public void StartGameMusic()
+    {
+        audioSource.clip = defaultBGMusic;
+        audioSource.Play();
     }
 
     public void SetMusicSpeed(float speed)

@@ -21,8 +21,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region animation data
-    [SerializeField]
-    Animator playerAnimator;
+    public Animator playerAnimator;
     #endregion
 
     void Start()
@@ -49,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         // update animations
         playerAnimator.SetBool("isGrounded", isGrounded);
+      
     }
 
     private void CheckPlayerInput()
@@ -78,7 +78,8 @@ public class PlayerController : MonoBehaviour
 
     private void GainLifeOnJump()
     {
-        if (PlayerStats.current.currentJumpID >= PlayerStats.current.jumpConfidenceGainFrequency)
+        if (PlayerStats.current.currentJumpID >= PlayerStats.current.jumpConfidenceGainFrequency &&
+            PlayerStats.current.currentLives > 0)
         {
             PlayerStats.current.currentJumpID = -1;
             userInterfaceManager.AddLife(1);

@@ -95,7 +95,7 @@ public class FriendController : MonoBehaviour
             }
             else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Space) && canHurtPlayer)
             {
-                Debug.Log("input:  " + Input.inputString.ToLower() + ". Required: " + friendText);
+                //Debug.Log("input:  " + Input.inputString.ToLower() + ". Required: " + friendText);
                 HurtPlayer();
                 return;
             }
@@ -103,7 +103,7 @@ public class FriendController : MonoBehaviour
 
         if (playerController.inFriendZone && PlayerStats.current.gainMultipleFriendsOnButtonPress)
         {
-            Debug.Log("COULD BE FRIEND");
+            //Debug.Log("COULD BE FRIEND");
             if (PlayerStats.current.multipleFriendsGainEnabled && Random.Range(0f, 1f) < PlayerStats.current.gainMultipleFriendsChance)
             {
                 AddAreaOfEffectFriend();
