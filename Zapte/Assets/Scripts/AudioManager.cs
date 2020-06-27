@@ -35,6 +35,7 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.clip = menuMusic;
         audioSource.Play();
+        fastAudioSource.Stop();
     }
     public void StartGameMusic()
     {
