@@ -19,6 +19,8 @@ public class Spawner : MonoBehaviour
    private float startTimeBtwSpawn;
 
     private void Update(){
+        if (!GameManager.instance.gameStarted)
+            return;
 	   random = Random.Range(startTimeBtwSpawnMin, startTimeBtwSpawnMax);
 	   startTimeBtwSpawn = random;
 	   if(startTimeBtwSpawn + decrease >= minTime){

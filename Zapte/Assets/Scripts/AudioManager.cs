@@ -11,15 +11,35 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioClip fastMusic;
 
+    [SerializeField]
+    AudioSource sfxAudioSource;
+    [SerializeField]
+    AudioClip friendFoundSFX;
+    [SerializeField]
+    AudioClip friendLostSFX;
+
     private void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        
     }
 
     public void SetMusicSpeed(float speed)
     {
         
         audioSource.pitch = speed;
+    }
+
+    public void PlayFriendFoundSFX()
+    {
+        sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
+        sfxAudioSource.PlayOneShot(friendFoundSFX);
+    }
+
+    public void PlayFriendLostSFX()
+    {
+        sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
+        sfxAudioSource.PlayOneShot(friendLostSFX);
     }
 
     public void PlayFastMusic()

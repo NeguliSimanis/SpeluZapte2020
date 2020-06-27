@@ -21,6 +21,8 @@ public class FriendController : MonoBehaviour
     [SerializeField]
     Animator friendAnimator;
 
+    AudioManager audioManager;
+
     private bool isPlayerInFriendZone = false;
     private bool hasHurtPlayer = false;
 
@@ -39,12 +41,14 @@ public class FriendController : MonoBehaviour
     {
         GetComponents();
         InitializeFriendText();
+     
     }
 
     private void GetComponents()
     {
         friendTextAnimator = friendTextField.gameObject.GetComponent<Animator>();
         userInterfaceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UserInterfaceManager>();
+        audioManager = GameManager.instance.audioManager;
     }
 
     private void InitializeFriendText()
@@ -100,6 +104,7 @@ public class FriendController : MonoBehaviour
     {
         if (hasHurtPlayer)
             return;
+        audioManager.PlayFriendLostSFX();
         hasHurtPlayer = true;
         //Debug.Log(gameObject.name + " MUST HURT PLAYER " + Time.time);
         userInterfaceManager.AddLife(-1);
@@ -109,6 +114,7 @@ public class FriendController : MonoBehaviour
     private void AddFriend()
     {
         userInterfaceManager.AddFriend();
+        audioManager.PlayFriendFoundSFX();
         DestroySelf();
     }
 

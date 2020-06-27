@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
+    public bool gameStarted = false;
     public static GameManager instance;
     private PlayerController playerController;
-    private AudioManager audioManager;
+    [HideInInspector]
+    public AudioManager audioManager;
 
     #region SPEED MANAGEMENT
     float standardGameSpeed = 1f;
@@ -38,6 +41,12 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         audioManager = transform.GetChild(0).gameObject.GetComponent<AudioManager>();
+
+        if (GameManager.instance == null)
+            GameManager.instance = this;
+        else
+            Destroy(this.gameObject);
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void OnEnable()
@@ -61,15 +70,7 @@ public class GameManager : MonoBehaviour
         PlayerStats.current.Reset();
         increaseSpeed = false;
         fastMusicPlaying = false;
-    }
-
-    private void Start()
-    {
-        if (GameManager.instance == null)
-            GameManager.instance = this;
-        else 
-            Destroy(this.gameObject);
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        gameStarted = false;
     }
 
     private void Update()
@@ -115,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         playerController.StartGame();
         increaseSpeed = true;
-       // StartCoroutine(IncreaseSpeed());
+        gameStarted = true;
     }
 
 
