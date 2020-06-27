@@ -84,13 +84,15 @@ public class FriendController : MonoBehaviour
     {
         if (isPlayerInFriendZone) 
         {
+            
             if (Input.inputString.ToLower() == friendText)
             {
                 AddFriend();
             }
             else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Space))
             {
-               HurtPlayer();
+                Debug.Log("input:  " + Input.inputString.ToLower() + ". Required: " + friendText);
+                HurtPlayer();
             }
         }
     }

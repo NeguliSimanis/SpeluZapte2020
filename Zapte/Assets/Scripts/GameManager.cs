@@ -10,13 +10,17 @@ public class GameManager : MonoBehaviour
     public bool gameStarted = false;
     public static GameManager instance;
     private PlayerController playerController;
+
+
     [HideInInspector]
     public AudioManager audioManager;
+    private UserInterfaceManager userInterfaceManager;
 
     #region SPEED MANAGEMENT
     float standardGameSpeed = 1f;
     float gameSpeedIncrease = 0.08f;
     float speedIncreaseIncrement = 1f; // detėrmines how often speed is updated
+    float defaultSpeedIncreaseIncrement = 1F;
     float nextSpeedIncreaseTime = 0f;
     float maxGameSpeed = 4.4f;
     float fastSpeedMultiplier = 1.5f;
@@ -46,7 +50,7 @@ public class GameManager : MonoBehaviour
             GameManager.instance = this;
         else
             Destroy(this.gameObject);
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
     }
 
     void OnEnable()
@@ -71,18 +75,22 @@ public class GameManager : MonoBehaviour
         increaseSpeed = false;
         fastMusicPlaying = false;
         gameStarted = false;
+
+        userInterfaceManager = gameObject.GetComponent<UserInterfaceManager>();
+        userInterfaceManager.InitializeManager();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             StartGame(); 
         }
 
         if (!increaseSpeed)
             return;
-        
+        Debug.Log("increase speed check " + Time.time);
         if (nextSpeedIncreaseTime == 0 || nextSpeedIncreaseTime < Time.time)
         {
             speedIncreaseIncrement *= 1.1f;
@@ -92,7 +100,7 @@ public class GameManager : MonoBehaviour
             {
                 Time.timeScale *= (1 + gameSpeedIncrease);
                 UpdateMusicSpeed();
-                Debug.Log("curr speed " + Time.timeScale);
+                //Debug.Log("curr speed " + Time.timeScale);
             }
 
             else 
@@ -104,7 +112,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (!fastMusicPlaying && Time.time > fastMusicStartTime)
                 {
-                    StartFastMusic();
+                    StartFastMusic(true);
                     Time.timeScale *= fastSpeedMultiplier;
                 }
             }
@@ -114,9 +122,15 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        userInterfaceManager.HideMainMenu();
         playerController.StartGame();
+        nextSpeedIncreaseTime = Time.time + speedIncreaseIncrement;
+        speedIncreaseIncrement = defaultSpeedIncreaseIncrement;
+        fastMusicStartTimeSet = false;
         increaseSpeed = true;
         gameStarted = true;
+        fastModeImage = GameObject.Find("FastMusicOverlay");
+        fastModeImage.SetActive(false);
     }
 
 
@@ -126,12 +140,26 @@ public class GameManager : MonoBehaviour
         audioManager.SetMusicSpeed(musicSpeed);
     }
 
-
-
-    private void StartFastMusic()
+    private void StartFastMusic(bool start)
     {
-        fastMusicPlaying = true;
-        audioManager.PlayFastMusic();
-        fastModeImage.SetActive(true);
+        fastMusicPlaying = start;
+        audioManager.PlayFastMusic(start);
+        fastModeImage.SetActive(start);
+    }
+
+    public void EndGame()
+    {
+        if (!gameStarted)
+            return;
+        gameStarted = false;
+        increaseSpeed = false;
+        userInterfaceManager.ShowEndGameUI();
+    }
+
+    public void RestartGame()
+    {
+        StartFastMusic(false);
+        audioManager.SetMusicSpeed(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

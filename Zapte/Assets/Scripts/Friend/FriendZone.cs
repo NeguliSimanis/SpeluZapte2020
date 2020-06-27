@@ -20,6 +20,8 @@ public class FriendZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!GameManager.instance.gameStarted)
+            return;
         if (collision.gameObject.tag == "Player")
         {
             if (!isInnerFriendZone)
@@ -34,6 +36,8 @@ public class FriendZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!GameManager.instance.gameStarted)
+            return;
         if (collision.gameObject.tag == "Player" && !isInnerFriendZone)
         {
             friendController.ActivateFriendZone(false);

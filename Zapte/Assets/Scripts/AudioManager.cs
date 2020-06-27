@@ -26,7 +26,6 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicSpeed(float speed)
     {
-        
         audioSource.pitch = speed;
     }
 
@@ -42,11 +41,18 @@ public class AudioManager : MonoBehaviour
         sfxAudioSource.PlayOneShot(friendLostSFX);
     }
 
-    public void PlayFastMusic()
+    public void PlayFastMusic(bool start)
     {
-        Debug.Log("STARTING FST ");
-        fastAudioSource.clip = fastMusic;
-        fastAudioSource.Play();
-        audioSource.Stop();
+        if (start)
+        {
+            fastAudioSource.clip = fastMusic;
+            fastAudioSource.Play();
+            audioSource.Stop();
+        }
+        else
+        {
+            fastAudioSource.Stop();
+            audioSource.Play();
+        }
     }
 }
