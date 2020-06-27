@@ -42,6 +42,13 @@ public class UserInterfaceManager : MonoBehaviour
     #endregion
 
 
+    #region STATS HUD
+    Text friendsFoundText;
+    Text charismaEarnedText;
+    Text friendsFoundText2;
+    Text charismaEarnedText2;
+    #endregion
+
     public void InitializeManager()
     {
         friendCount = GameObject.Find("friendCountText").GetComponent<Text>();
@@ -49,12 +56,21 @@ public class UserInterfaceManager : MonoBehaviour
         keyInputHUD = GameObject.Find("PressedButtonHUD");   
         keyInputText1 = GameObject.Find("keyInputText1").GetComponent<Text>(); 
         keyInputText2 = GameObject.Find("keyInputText2").GetComponent<Text>();
-        keyInputHUD.SetActive(false);
+        
         endGameMenu = GameObject.Find("GameOver");
-        endGameMenu.SetActive(false);
+        
         endGameCanvas = GameObject.Find("MainMenu");
         startMenu = GameObject.Find("StartPanel");
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        friendsFoundText = GameObject.Find("friendsFoundText").GetComponent<Text>();
+        charismaEarnedText = GameObject.Find("charismaEarnedText").GetComponent<Text>();
+
+        friendsFoundText2 = GameObject.Find("friendsFoundText (1)").GetComponent<Text>();
+        charismaEarnedText2 = GameObject.Find("charismaEarnedText (1)").GetComponent<Text>();
+
+        keyInputHUD.SetActive(false);
+        endGameMenu.SetActive(false);
     }
 
     private void Start()
@@ -75,12 +91,12 @@ public class UserInterfaceManager : MonoBehaviour
         PlayerStats.current.currentLives += amount;
         if (PlayerStats.current.currentLives > 0)
         {
-            lifeText.text = "Lives: " + PlayerStats.current.currentLives.ToString();
+            lifeText.text = "Confidence: " + PlayerStats.current.currentLives.ToString();
         }
         else
         {
             GameManager.instance.EndGame();
-            lifeText.text = "Lives: " + "0";
+            lifeText.text = "Confidence: " + "0";
         }
         //Debug.Log("lives after hurt " + PlayerStats.current.currentLives.ToString());
     }
@@ -119,5 +135,12 @@ public class UserInterfaceManager : MonoBehaviour
     {
         endGameCanvas.SetActive(true);
         endGameMenu.SetActive(true);
+
+        friendsFoundText.text = "found " + PlayerStats.current.currentFriends + " friends";
+        PlayerStats.current.SetEndGameStats();
+        charismaEarnedText.text = "earned " + PlayerStats.current.currentFriends + " charisma";
+
+        friendsFoundText2.text = "best: " + PlayerStats.current.friendRecord + " friends";
+        charismaEarnedText2.text = "total:  " + PlayerStats.current.currentCharisma + " charisma";
     }
 }
