@@ -51,7 +51,7 @@ public class FriendController : MonoBehaviour
     {
         friendTextGenerator = new FriendTextGenerator();
         friendText = friendTextGenerator.GetFriendText();
-        friendTextField.text = friendText;
+        friendTextField.text = friendText.ToUpper();
     }
 
 
@@ -80,7 +80,7 @@ public class FriendController : MonoBehaviour
     {
         if (isPlayerInFriendZone) 
         {
-            if (Input.inputString == friendText)
+            if (Input.inputString.ToLower() == friendText)
             {
                 AddFriend();
             }
@@ -101,7 +101,7 @@ public class FriendController : MonoBehaviour
         if (hasHurtPlayer)
             return;
         hasHurtPlayer = true;
-        Debug.Log(gameObject.name + " MUST HURT PLAYER " + Time.time);
+        //Debug.Log(gameObject.name + " MUST HURT PLAYER " + Time.time);
         userInterfaceManager.AddLife(-1);
         DestroySelf();
     }

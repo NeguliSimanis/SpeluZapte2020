@@ -63,4 +63,9 @@ public class PlayerController : MonoBehaviour
             playerRigidbody2D.AddForce(Vector2.left * moveForce);
         }
     }
+
+    private void UpdatePlayerAnimatorSpeed()
+    {
+        playerAnimator.speed = Time.timeScale;
+    }
 }

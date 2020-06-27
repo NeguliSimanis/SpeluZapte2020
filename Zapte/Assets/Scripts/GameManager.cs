@@ -8,18 +8,36 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     private PlayerController playerController;
+    private AudioManager audioManager;
 
+    #region SPEED MANAGEMENT
     float standardGameSpeed = 1f;
-    float minGameSpeedIncrease = 0.1f;
-    float speedIncreaseIncrement = 1f;
+    float gameSpeedIncrease = 0.08f;
+    float speedIncreaseIncrement = 1f; // detėrmines how often speed is updated
     float nextSpeedIncreaseTime = 0f;
-    float maxGameSpeed = 5f;
+    float maxGameSpeed = 4.4f;
+    float fastSpeedMultiplier = 1.5f;
     bool increaseSpeed = false;
+    float musicSpeedIncreaseIncrement = 0.2f;
+    #endregion
+
+    #region FAST MODE
+    [SerializeField]
+    GameObject fastModeImage;
+    float fastMusicStartDelay = 24f;
+    float fastMusicStartTime;
+    bool fastMusicPlaying = false;
+    bool fastMusicStartTimeSet = false;
+    #endregion
 
     private void Awake()
     {
         if (PlayerStats.current == null)
+        {
             PlayerStats.current = new PlayerStats();
+            DontDestroyOnLoad(this);
+        }
+        audioManager = transform.GetChild(0).gameObject.GetComponent<AudioManager>();
     }
 
     void OnEnable()
@@ -42,6 +60,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = standardGameSpeed;
         PlayerStats.current.Reset();
         increaseSpeed = false;
+        fastMusicPlaying = false;
     }
 
     private void Start()
@@ -65,15 +84,29 @@ public class GameManager : MonoBehaviour
         
         if (nextSpeedIncreaseTime == 0 || nextSpeedIncreaseTime < Time.time)
         {
-            speedIncreaseIncrement *= 1.07f;
+            speedIncreaseIncrement *= 1.1f;
             nextSpeedIncreaseTime = Time.time + speedIncreaseIncrement;
 
             if (Time.timeScale < maxGameSpeed)
             {
-                Time.timeScale *= (1 + minGameSpeedIncrease);
-                //Debug.Log("curr speed " + Time.timeScale);
+                Time.timeScale *= (1 + gameSpeedIncrease);
+                UpdateMusicSpeed();
+                Debug.Log("curr speed " + Time.timeScale);
             }
-            //else
+
+            else 
+            {
+                if (!fastMusicStartTimeSet)
+                {
+                    fastMusicStartTimeSet = true;
+                    fastMusicStartTime = Time.time + fastMusicStartDelay;
+                }
+                if (!fastMusicPlaying && Time.time > fastMusicStartTime)
+                {
+                    StartFastMusic();
+                    Time.timeScale *= fastSpeedMultiplier;
+                }
+            }
             //    Debug.Log("MAX SPEED REACHED");
         }
     }
@@ -82,24 +115,22 @@ public class GameManager : MonoBehaviour
     {
         playerController.StartGame();
         increaseSpeed = true;
-        //StartCoroutine(IncreaseSpeed());
+       // StartCoroutine(IncreaseSpeed());
     }
 
-    private IEnumerator IncreaseSpeed()
+
+    private void UpdateMusicSpeed()
     {
-        Debug.Log("corot started " + Time.time);
-        int frameCount = 0;
-        while (frameCount > 20)
-        {
-            frameCount--;
-            yield return null;
-        }
-        if (Time.timeScale < maxGameSpeed)
-        {
-            Time.timeScale *= (1 + minGameSpeedIncrease);
-            Debug.Log("curr speed " + Time.timeScale);
-        }
-        else
-            Debug.Log("MAX SPEED REACHED");
+        float musicSpeed = 1f + (Time.timeScale - 1f) * musicSpeedIncreaseIncrement;
+        audioManager.SetMusicSpeed(musicSpeed);
+    }
+
+
+
+    private void StartFastMusic()
+    {
+        fastMusicPlaying = true;
+        audioManager.PlayFastMusic();
+        fastModeImage.SetActive(true);
     }
 }

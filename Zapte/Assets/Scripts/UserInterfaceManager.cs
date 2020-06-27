@@ -20,7 +20,7 @@ public class UserInterfaceManager : MonoBehaviour
 
     public void AddLife(int amount)
     {
-        Debug.Log("lives before hurt " + PlayerStats.current.currentLives.ToString());
+        //Debug.Log("lives before hurt " + PlayerStats.current.currentLives.ToString());
         PlayerStats.current.currentLives += amount;
         if (PlayerStats.current.currentLives > 0)
         {
@@ -30,6 +30,6 @@ public class UserInterfaceManager : MonoBehaviour
         {
             lifeText.text = "Lives: " + "0";
         }
-        Debug.Log("lives after hurt " + PlayerStats.current.currentLives.ToString());
+        //Debug.Log("lives after hurt " + PlayerStats.current.currentLives.ToString());
     }
 }
