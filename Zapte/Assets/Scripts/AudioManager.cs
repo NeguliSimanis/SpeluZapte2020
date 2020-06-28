@@ -63,7 +63,7 @@ public class AudioManager : MonoBehaviour
     public void PlayJumpSFX()
     {
         sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
-        sfxAudioSource.PlayOneShot(jumpSFX);
+        sfxAudioSource.PlayOneShot(jumpSFX, 1f);
     }
 
     public void PlayFriendFoundSFX()

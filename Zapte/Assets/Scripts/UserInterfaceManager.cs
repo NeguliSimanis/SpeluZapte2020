@@ -155,6 +155,11 @@ public class UserInterfaceManager : MonoBehaviour
         PlayerStats.current.SetEndGameStats();
         charismaEarnedText.text = "earned " + PlayerStats.current.currentFriends + " charisma";
 
+        UpdateEndGameStats();
+    }
+
+    public void UpdateEndGameStats()
+    {
         friendsFoundText2.text = "best: " + PlayerStats.current.friendRecord + " friends";
         charismaEarnedText2.text = "total:  " + PlayerStats.current.currentCharisma + " charisma";
     }

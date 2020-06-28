@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
             playerRigidbody2D.AddForce(Vector2.up * jumpForce);
             isGrounded = false;
             PlayerStats.current.currentJumpID++;
+            GameManager.instance.audioManager.PlayJumpSFX();
             if (PlayerStats.current.gainConfidenceOnJump)
                 GainLifeOnJump();
         }

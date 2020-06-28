@@ -18,8 +18,8 @@ TagManager:
   - PlayerFriendDetector
   - Ground
   - Feet
-  - 
-  - 
+  - Wall
+  - PlayerFeet
   - 
   - 
   - 

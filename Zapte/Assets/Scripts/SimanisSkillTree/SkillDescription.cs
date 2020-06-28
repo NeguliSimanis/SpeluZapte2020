@@ -85,6 +85,7 @@ public class SkillDescription : MonoBehaviour
             return;
         PlayerStats.current.currentCharisma -= PlayerStats.current.playerSkills[selectedSkillID - 1].cost;
         PlayerStats.current.UnlockSkill(selectedSkillID-1);
+        GameManager.instance.GetComponent<UserInterfaceManager>().UpdateEndGameStats();
         skillPurchased.SetActive(true);
     }
 
