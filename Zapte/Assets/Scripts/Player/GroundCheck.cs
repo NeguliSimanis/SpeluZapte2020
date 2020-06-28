@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Checks if player is located on ground or flying/jumping
@@ -26,3 +27,6 @@ public class GroundCheck : MonoBehaviour
         }
     }
 }
+
+
+

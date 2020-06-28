@@ -132,7 +132,12 @@ public class UserInterfaceManager : MonoBehaviour
         {
             keyInputHUD.SetActive(false);
         }
-        
+
+        if (PlayerStats.current.currentLives > 0)
+        {
+            lifeText.text = "Confidence: " + PlayerStats.current.currentLives.ToString();
+        }
+
     }
 
     public void HideMainMenu()

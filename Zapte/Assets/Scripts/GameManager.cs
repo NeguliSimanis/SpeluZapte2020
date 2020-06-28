@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     #region FAST MODE
     GameObject fastModeImage;
-    float fastMusicStartDelay = 30f;
+    float fastMusicStartDelay = 25f;
     float fastMusicStartTime;
     bool fastMusicPlaying = false;
     bool fastMusicStartTimeSet = false;
