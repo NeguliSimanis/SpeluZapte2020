@@ -25,6 +25,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioClip keyTapSFX;
 
+    [SerializeField]
+    AudioClip jumpSFX;
+
+    [SerializeField]
+    AudioClip iHaveNofriends;
+
     private void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -35,6 +41,7 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.clip = menuMusic;
         audioSource.Play();
+        fastAudioSource.Stop();
     }
     public void StartGameMusic()
     {
@@ -45,6 +52,18 @@ public class AudioManager : MonoBehaviour
     public void SetMusicSpeed(float speed)
     {
         audioSource.pitch = speed;
+    }
+
+    public void PlayNoFriends()
+    {
+        sfxAudioSource.pitch = 1f;
+        sfxAudioSource.PlayOneShot(iHaveNofriends);
+    }
+
+    public void PlayJumpSFX()
+    {
+        sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
+        sfxAudioSource.PlayOneShot(jumpSFX);
     }
 
     public void PlayFriendFoundSFX()
