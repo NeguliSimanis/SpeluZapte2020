@@ -9,6 +9,7 @@ public class SkillButton : MonoBehaviour
    public Text skillNameText;
    public Text skillDesText;
    public int skillButtonId;
+ 
    
    //MARKER this method will be called when we press each skill
    public void PressSkillButton(){
@@ -18,6 +19,7 @@ public class SkillButton : MonoBehaviour
 	  skillImage.sprite = SkillManager.instance.skills[skillButtonId].skillSprite;
 	  skillNameText.text = SkillManager.instance.skills[skillButtonId].skillName;
 	  skillDesText.text = SkillManager.instance.skills[skillButtonId].skillDes;
+	 
 	   
    }
 }

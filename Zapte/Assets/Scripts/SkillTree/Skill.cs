@@ -23,16 +23,44 @@ public class Skill : MonoBehaviour
   
   private int currentCount;
   
+  [SerializeField]
+  private bool unlocked;
+  
+  [SerializeField]
+  private Skill[] childSkill;
+  
+  
+  public int MyCurrentCount{
+	  get{
+		  return currentCount;
+	  }
+	  
+	  set{
+		  currentCount = value;
+	  }
+  }
+  
   
   private void Awake(){
 	  sprite = GetComponent<Image>();
-	  
+	  countText.text = $"{currentCount} / {maxCount}";
+	  if(unlocked){
+		  Unlock();
+	  }
   }
   
   public bool Click(){
-	  if(currentCount < maxCount){
+	  if(currentCount < maxCount && unlocked){
 		  currentCount++;
 		  countText.text = $"{currentCount} / {maxCount}";
+		  
+		  if(currentCount == maxCount){
+			  if(childSkill != null){
+				  foreach (Skill chskill in childSkill){
+					  chskill.Unlock();
+				  }
+			  }
+		  }
 		  return true;
 	  }
 	  
@@ -44,11 +72,14 @@ public class Skill : MonoBehaviour
   public void Lock(){
 	  sprite.color = Color.gray;
 	  countText.color = Color.gray;
+	  
   }
   
   public void Unlock(){
 	  sprite.color = Color.white;
 	  countText.color = Color.white;
+	  
+	  unlocked = true;
   }
   
 }

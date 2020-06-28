@@ -25,6 +25,13 @@ public class SkillTree : MonoBehaviour
 		if(MyPoints > 0 && skill.Click()){
 			MyPoints--;
 		}
+		if(MyPoints == 0){
+			foreach(Skill s in skills){
+				if(s.MyCurrentCount == 0){
+					s.Lock();
+				}
+			}
+		}
 	}
 	
 	public int MyPoints{
