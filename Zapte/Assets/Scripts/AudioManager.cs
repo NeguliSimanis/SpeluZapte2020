@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
     AudioClip keyTapSFX;
 
     [SerializeField]
-    AudioClip jumpSFX;
+    AudioClip []jumpSFX;
 
     [SerializeField]
     AudioClip iHaveNofriends;
@@ -63,7 +63,7 @@ public class AudioManager : MonoBehaviour
     public void PlayJumpSFX()
     {
         sfxAudioSource.pitch = Random.Range(0.85f, 1.1f);
-        sfxAudioSource.PlayOneShot(jumpSFX, 1f);
+        sfxAudioSource.PlayOneShot(jumpSFX[Random.Range(0, jumpSFX.Length)], 1f);
     }
 
     public void PlayFriendFoundSFX()

@@ -47,6 +47,10 @@ public class PlayerStats
     public float gainMultipleFriendsChance = 0.2f;
     public bool multipleFriendsGainEnabled = false;
 
+    // chance to gain life on friend
+    public bool canGainLifeOnFriend = false;
+    public float gainLifeFromFriendChance = 0.1f;
+
     public List<PlayerSkill> playerSkills = new List<PlayerSkill>();
     public int selectedSkillID = 1;
     public Sprite selectedSkillSprite;
@@ -60,7 +64,10 @@ public class PlayerStats
         playerSkills.Add(new PlayerSkill("Elevating Confidence", 4, 15, false, "Increase your max confidence by 1", 2));
         playerSkills.Add(new PlayerSkill("Everpresent Confidence", 5, 15, false, "Increase your max confidence by 1", 3));
         playerSkills.Add(new PlayerSkill("Exercise II", 6, 30, false, "Gain 1 confidence on every fifth jump", 4));
-        playerSkills.Add(new PlayerSkill("Public Speaker II", 7, 30, false, "30% additional chance to gain an additional friend", 5)); 
+        playerSkills.Add(new PlayerSkill("Public Speaker II", 7, 30, false, "30% additional chance to gain an additional friend", 5));
+
+        playerSkills.Add(new PlayerSkill("Positive Reinforcement I", 8, 20, false, "10% chance to gain 1 confidence when you find a friend", 3));
+        playerSkills.Add(new PlayerSkill("Positive Reinforcement II", 9, 40, false, "20% additional chance to gain 1 confidence when you find a friend", 8));
     }
 
     public void Reset()
@@ -110,6 +117,14 @@ public class PlayerStats
             case 7:
                 gainMultipleFriendsOnButtonPress = true;
                 gainMultipleFriendsChance = 0.4f;
+                break;
+            case 8:
+                canGainLifeOnFriend = true;
+                gainLifeFromFriendChance = 0.1f;
+                break;
+            case 9:
+                canGainLifeOnFriend = true;
+                gainLifeFromFriendChance = 0.3f;
                 break;
         }
     }

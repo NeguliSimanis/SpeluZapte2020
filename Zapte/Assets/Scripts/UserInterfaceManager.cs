@@ -86,6 +86,10 @@ public class UserInterfaceManager : MonoBehaviour
     public void AddFriend()
     {
         PlayerStats.current.currentFriends++;
+        if (PlayerStats.current.canGainLifeOnFriend && Random.Range(0,1f) < PlayerStats.current.gainLifeFromFriendChance)
+        {
+            PlayerStats.current.currentLives++;
+        }
         friendCount.text = "Friends: " + PlayerStats.current.currentFriends.ToString();
     }
 
